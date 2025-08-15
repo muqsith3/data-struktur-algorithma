@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>buble sort algorithma</title>
+  </head>
+  <body>
+    <h1>implementasi buble sort dengan javascript</h1>
+
+    <script>
+      const arrs = [7, 12, 9, 11, 3];
+      const total = arrs.length;
+      console.log(total);
+      //buble sort
+      function bubleSort(arr) {
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = 0; j < arr.length - i - 1; j++) {
+            let swapped = false;
+            if (arr[j] > arr[j + 1]) {
+              const tempt = arr[j];
+              arr[j] = arr[j + 1];
+              arr[j + 1] = tempt;
+              swapped = true;
+            }
+          }
+        }
+        return arr;
+      }
+      console.log(arrs);
+      console.log(bubleSort(arrs));
+    </script>
+  </body>
+</html>

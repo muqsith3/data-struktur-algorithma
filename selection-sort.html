@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>selection sort algorithma</title>
+  </head>
+  <body>
+    <h1>selection algoritma</h1>
+    <script>
+      // selection sort tanpa function
+      const arrs = [66, 25, 12, 22, 11];
+      console.log("sebelum selection sort", arrs);
+      const n = arrs.length;
+
+      for (let i = 0; i < n; i++) {
+        let minIndex = i; // asumsi arr[0] selalu paling kecil
+        for (let j = i + 1; j < n; j++) {
+          if (arrs[j] < arrs[minIndex]) {
+            minIndex = j;
+          }
+        }
+        if (minIndex !== i) {
+          let tmpt = arrs[i];
+          arrs[i] = arrs[minIndex];
+          arrs[minIndex] = tmpt;
+        }
+      }
+      console.log("hasil selection sort ", arrs);
+
+      // menggunakan function
+      function selectionSort(arr) {
+        for (let i = 0; i < arr.length; i++) {
+          let minIndex = i;
+
+          for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+            }
+          }
+
+          if (minIndex !== i) {
+            let tempt = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = tempt;
+          }
+        }
+        return arr;
+      }
+      const angka = [44, 70, 15, 64, 3, 1];
+      console.log(angka);
+      console.log(selectionSort(angka));
+    </script>
+  </body>
+</html>
