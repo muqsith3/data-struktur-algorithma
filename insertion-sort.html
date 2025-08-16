@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>insertion sort algoritma</title>
+  </head>
+  <body>
+    <h1>insertion sort algoritma dengan javascript</h1>
+    <script>
+      const array = [5, 3, 4, 1, 2];
+      //insertion sort
+      function insertionSort(arr) {
+        for (let i = 1; i < arr.length; i++) {
+          let key = arr[i]; //element yg mau disisipkan
+          let j = i - 1;
+
+          //geser elemen yg lebih besar ke kanan
+          while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+          }
+          //sisipkan element di posisi yg benar
+          arr[j + 1] = key;
+        }
+        return arr;
+      }
+      console.log(array);
+      console.log("insertion sort - ", insertionSort(array));
+    </script>
+  </body>
+</html>
