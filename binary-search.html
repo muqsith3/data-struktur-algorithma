@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>binary search algoritma</title>
+  </head>
+  <body>
+    <h1>binary search algoritma dengan javascript</h1>
+
+    <script>
+      // binary search
+      // masuk ke tengah-tengah arrahy bandingkan apa yg kita cari dengan array di tengah
+      // jika lebih kecil cari ke lebih besar
+      // jika lebih besar cari ke lebih kecil
+
+      const arrs = [66, 23, 10, 33, 4, 2, 90, 100, 50];
+      const total = arrs.length - 1;
+      console.log(total);
+
+      function selectionSort(arr) {
+        for (let i = 0; i < arr.length; i++) {
+          let minIndex = i;
+
+          for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+            }
+          }
+          if (minIndex !== i) {
+            let tempt = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = tempt;
+          }
+        }
+        return arr;
+      }
+
+      function binarySearch(arr, target) {
+        let left = 0;
+        let right = arr.length - 1;
+
+        while (left <= right) {
+          const mid = Math.floor((left + right) / 2);
+
+          if (arr[mid] === target) {
+            return arr[mid];
+          } else if (arr[mid] < target) {
+            left = mid + 1;
+          } else {
+            right = mid - 1;
+          }
+        }
+        return -1;
+      }
+      console.log("isi semua element arrays", arrs);
+      const result = selectionSort(arrs);
+      console.log(result);
+      console.log("binary search", binarySearch(result, 100));
+    </script>
+  </body>
+</html>
