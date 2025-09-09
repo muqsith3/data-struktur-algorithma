@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radix Sort Algortima</title>
+  </head>
+  <body>
+    <h1>Radix Sort Algoritma</h1>
+    <p>
+      mensortir digit per-digit dimulai dari yg paling kanan ke kiri dengan mengurutkan bilangan yg paling kecil ke yang paling
+      besar
+    </p>
+
+    <script>
+      function radixSort(nums) {
+        //fungsi bantu getdigit agar tidak ada angka negatif
+        const getDigit = (num, place) => {
+          return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+        };
+        //fungsi bantu digitcount untuk mengambil digit di posisi tertentu dari angka num. posisi place dihitung dari kanan
+        //place = 0 digit satuan | place = 1 digit puluhan | place = 2 digit ratusan
+        // penjelasan langkah perlangkah
+        // 1. Math.abs(num) untuk mengubah angka negatif menjadi positif
+        // 2. Math.pow(10, place) menghasilkan pangkat 10. Misalnya, jika place adalah 2, maka Math.pow(10, 2) menghasilkan 100.
+        // 3. Math.abs(num) / Math.pow(10, place) menggeser digit yg ingin diambil ke posisi satuan. contoh : getDigit(802, 2) -> 802 / 100 = 8.02
+        // 4. Math.floor(...) membulatkan ke bawah agar kita hanya ambil bagian integer saja. Math.floor(8.02) = 8
+        // 5. % 10 mengambil digit satuan dari hasil pembagian tadi. 8 % 10 = 8
+        //contoh praktis : getDigit(802, 2) -> 8 | getDigit(802, 1) -> 0 | getDigit(802, 0) -> 2
+
+        //fungsi bantu digitCount untuk menghitung jumlah digit dalam sebuah angka
+        const digitCount = (num) => {
+          if (num === 0) return 1;
+          return Math.floor(math.log10(Math.abs(num))) + 1;
+          // tujuan utama -> menghitung jumlah digit dari sebuah angka num. contoh : digitCount(2) -> 1 | digitCount(25) -> 2 | digitCount(314) -> 3
+          // penjelasan langkah perlangkah
+          // 1. if(num ===0) return 1; -> kasus khusus angka 0 hanya punya 1 digit bukan 0 digit. tanpa ini Math.log10(0) akan menghasilkan -infinity yg tidak bisa diproses
+          // 2. Math.abs(num) mengubah angka negatif menjadi positif karena logaritma tidak bisa menghitung angka negatif
+          // 3. Math.log10(...) menghitung logaritma basis 10 dari angka. ini memberitahu "berapa pangka 10" yg mendekati angka tersebut. contoh : Math.log(802) -> 2.903
+          // 4. Math.floor(...) membulatkan kebawah agar kita hanya ambil bagian integer aja. contoh : Math.floor(2.903) -> 2
+          // 5. + 1 karena digit dihitung dari 0, kita tambahkan 1 untuk mendapatkan jumlah digit sebenarnya. Math.floor(2.903) + 1 -> 3
+          // contoh praktis : angka = 2 -> log10 = 0.301 -> floor = 0 -> +1 = 1 hasilnya 1 digit | angka = 25 -> log10 = 1.397 -> floor = 1 -> +1 = 2 hasilnya 2 digit | angka = 314 -> log10 = 2.497 -> floor = 2 -> +1 = 3 hasilnya 3 digit
+        };
+        //fungsi bantu mostDigits untuk menentukan jumlah digit terbesar dalam array
+        const mostDigits = (nums) => {
+          let max = 0;
+          //menggunakan destruction agar lebih singkat
+          //return Math.max(...nums.map(digitCount));
+          //menggunakan for loop
+          // for(let i = 0; i < nums.length; i++){
+          //   max = Math.max(max, digitCount(nums[i]));
+          //menggunakan for of loop
+          for (let num of nums) {
+            max = Math.max(max, digitCount(num));
+          }
+          return max;
+          // tujuan utama -> menentukan jumlah digit terbanyak dari semua angka dalam array nums, ini digunakan untuk menetapkan berapa banyak iterasi yg dibutuhkan dalam radix sort
+          // 1. nums,map(digitCount) -> kita melakukan map() pada array nums artinya kita menerapkan fungsi digitCount() ke setiap element. hasilnya adalah array baru berisi jumlah digit dari setiap angka. contoh : nums [802,24, 2] -> [3, 2, 1]
+          // 2. Math.max(...) kita ambil nilai maksimum dari array hasil map tadi. ini memberi tahu berapa digit paling panjang yg dimiliki oleh angka dalam array. contoh : Math.max(...[3,2,1,]) -> 3
+          // contoh praktis : nums = [2, 25, 314] -> digitCount = [1, 2, 3] -> Math.max = 3 hasilnya 3 digit
+          // 3. return hasilnya yg akan digunakan dalam loop utama radix sort
+        };
+        // proses radix sort
+        const maxDigitCount = mostDigits(nums);
+        for (let k = 0; k < maxDigitCount; k++) {
+          let buckets = array.from({ length: 10 }, () => []);
+          for (let i = 0; i < nums.length; i++) {
+            const digit = getDigit(nums[i], k);
+            buckets[digit].push(nums[i]);
+          }
+          nums = [].concat(...buckets);
+        }
+        return nums;
+      }
+
+      //contoh penggunaan
+      const arr = [170, 45, 75, 90, 802, 24, 2, 66];
+      console.log(radixSort(arr));
+    </script>
+  </body>
+</html>
