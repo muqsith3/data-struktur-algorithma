@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pohon Rekursif Fibonacci</title>
+    <style>
+      ul {
+        list-style-type: none;
+      }
+      .node {
+        cursor: pointer;
+        padding: 6px 12px;
+        margin: 4px;
+        border: 1px solid #555;
+        border-radius: 6px;
+        display: inline-block;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Pohon Rekursif Fibonacci</h2>
+    <div id="tree"></div>
+
+    <script>
+      function createTree(n) {
+        const node = document.createElement("li");
+        node.className = "node";
+        node.textContent = `F(${n})`;
+
+        if (n > 1) {
+          const children = document.createElement("ul");
+          children.appendChild(createTree(n - 1));
+          children.appendChild(createTree(n - 2));
+          node.appendChild(children);
+        }
+
+        return node;
+      }
+
+      const treeContainer = document.createElement("ul");
+      treeContainer.appendChild(createTree(5)); // Ubah angka sesuai yang kamu ingin eksplorasi
+      document.getElementById("tree").appendChild(treeContainer);
+    </script>
+  </body>
+</html>

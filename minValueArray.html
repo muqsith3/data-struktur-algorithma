@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mencari value terkecil dari array</title>
+  </head>
+  <body>
+    <h1>mencari value terkecil di array</h1>
+
+    <script>
+      const arr = [12, 22, 33, 46, 95, 96, 57, 28, 19, 10];
+      //cara 1
+      const minValue = Math.min(...arr);
+      console.log(
+        "Nilai terkecil dengan cara ke-1 di array adalah: ",
+        minValue
+      );
+      //cara 2
+      let minValue2 = arr[0];
+      for (let i of arr) {
+        if (i < minValue2) {
+          minValue2 = i;
+        }
+      }
+      console.log("cara ke 2 - ", minValue2);
+      //cara ke-3
+      const minValue3 = arr.reduce((acc, curr) => (curr < acc ? curr : acc));
+      console.log("cara ke 3 - ", minValue3);
+    </script>
+  </body>
+</html>
+2x1 2x setengah

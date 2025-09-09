@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fibonnaci number dengan javascript</title>
+  </head>
+  <body>
+    <div>
+      <h1>Fibonacci Number</h1>
+      <p>
+        Fibonacci adalah deret angka yang dimulai dengan 0 dan 1, di mana setiap angka berikutnya adalah jumlah dari dua angka
+        sebelumnya.
+      </p>
+      <p class="fibonacci"></p>
+    </div>
+    <div>
+      <hr />
+      <h1>Fibonnaci menggunakan Recursive</h1>
+      <p class="fibonacci-recursive"></p>
+      <p class="fibtest"></p>
+    </div>
+
+    <script>
+      const fibEl = document.querySelector(".fibonacci");
+      function fibonacci(n) {
+        // cara 1
+        /*if (n < 0) return "input tidak valid. harus lebih dari 0";
+        const arrFib = [0, 1];
+        for (let i = 0; i < n; i++) {
+          arrFib.push(arrFib[i] + arrFib[i + 1]);
+        }
+        return arrFib.join(", ");
+        */
+        /* cara 2 */
+        if (n < 0) return "input tidak valid. harus lebih dari 0";
+        if (n === 0) return 0;
+        if (n === 1) return 1;
+        let a = 0,
+          b = 1;
+        for (let i = 0; i < n; i++) {
+          [a, b] = [b, a + b];
+        }
+        return a;
+      }
+      fibEl.innerHTML = fibonacci(2);
+
+      //fibonacci menggunakan rekursif
+      function fibonacciRecursive(n) {
+        if (n < 0) return "input tidak valid. tidak boleh kurang dari 0";
+        if (n === 0) return 0;
+        if (n === 1) return 1;
+        return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+      }
+      const fibElRecursive = document.querySelector(".fibonacci-recursive");
+      fibElRecursive.innerHTML = fibonacciRecursive(19);
+
+      function F(n) {
+        console.log("Memanggil F(" + n + ")");
+        if (n === 0) return 0;
+        if (n === 1) return 1;
+        return F(n - 1) + F(n - 2);
+      }
+
+      console.log("Hasil akhir:", F(5));
+
+      let count = 0;
+      function fibTest(n) {
+        count++;
+        if (n <= 1) {
+          return n;
+        } else {
+          return fibTest(n - 1) + fibTest(n - 2);
+        }
+      }
+      fibTestEl = document.querySelector(".fibtest");
+      console.log("fibTest(19)", fibTest(19));
+      console.log(`jumlah pemanggilan fungsi: ${count}`);
+
+      //contoh loop
+      function loopFib(n) {
+        if (n <= 1) return n;
+        let a = 0,
+          b = 1;
+        for (let i = 2; i <= n; i++) {
+          [a, b] = [b, a + b];
+        }
+        return b;
+      }
+      console.log(`fibonacci loop(19) hasil loop ${loopFib(19)}`);
+    </script>
+  </body>
+</html>

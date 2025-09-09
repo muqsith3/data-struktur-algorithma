@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Visualisasi Bubble Sort</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .bar-container {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 20px;
+      }
+      .bar {
+        width: 30px;
+        background-color: steelblue;
+        text-align: center;
+        color: white;
+        height: 30px;
+        transition: all 0.4s ease;
+      }
+      .swap {
+        background-color: tomato;
+      }
+      .noswap {
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🔄 Visualisasi Bubble Sort (Optimized)</h2>
+    <div class="bar-container" id="bars"></div>
+    <button onclick="bubbleSort()">Mulai Sorting</button>
+    <p id="status"></p>
+
+    <script>
+      const arr = [1, 2, 3, 4, 5, 6, 7, 8, 10, 9];
+      const bars = document.getElementById("bars");
+      const status = document.getElementById("status");
+
+      function renderBars(highlight = []) {
+        bars.innerHTML = "";
+        arr.forEach((num, index) => {
+          const bar = document.createElement("div");
+          bar.className = "bar";
+          bar.style.height = `${num * 3}px`;
+          bar.textContent = num;
+          if (highlight.includes(index)) {
+            bar.classList.add("swap");
+          }
+          bars.appendChild(bar);
+        });
+      }
+
+      async function bubbleSort() {
+        status.textContent = "";
+        for (let i = 0; i < arr.length - 1; i++) {
+          let swapped = false;
+          for (let j = 0; j < arr.length - i - 1; j++) {
+            renderBars([j, j + 1]);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            if (arr[j] > arr[j + 1]) {
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+              swapped = true;
+            }
+          }
+
+          renderBars();
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          if (!swapped) {
+            status.textContent =
+              "✅ Tidak ada swap → Algoritma berhenti lebih awal.";
+            break;
+          }
+        }
+        status.textContent += "\n🟢 Selesai!";
+      }
+
+      renderBars();
+    </script>
+  </body>
+</html>
