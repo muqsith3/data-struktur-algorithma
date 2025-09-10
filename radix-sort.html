@@ -18,7 +18,7 @@
         const getDigit = (num, place) => {
           return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
         };
-        //fungsi bantu digitcount untuk mengambil digit di posisi tertentu dari angka num. posisi place dihitung dari kanan
+        //fungsi bantu ini untuk mengambil digit di posisi tertentu dari angka num. posisi place dihitung dari kanan
         //place = 0 digit satuan | place = 1 digit puluhan | place = 2 digit ratusan
         // penjelasan langkah perlangkah
         // 1. Math.abs(num) untuk mengubah angka negatif menjadi positif
@@ -31,7 +31,7 @@
         //fungsi bantu digitCount untuk menghitung jumlah digit dalam sebuah angka
         const digitCount = (num) => {
           if (num === 0) return 1;
-          return Math.floor(math.log10(Math.abs(num))) + 1;
+          return Math.floor(Math.log10(Math.abs(num))) + 1;
           // tujuan utama -> menghitung jumlah digit dari sebuah angka num. contoh : digitCount(2) -> 1 | digitCount(25) -> 2 | digitCount(314) -> 3
           // penjelasan langkah perlangkah
           // 1. if(num ===0) return 1; -> kasus khusus angka 0 hanya punya 1 digit bukan 0 digit. tanpa ini Math.log10(0) akan menghasilkan -infinity yg tidak bisa diproses
@@ -63,7 +63,7 @@
         // proses radix sort
         const maxDigitCount = mostDigits(nums);
         for (let k = 0; k < maxDigitCount; k++) {
-          let buckets = array.from({ length: 10 }, () => []);
+          let buckets = Array.from({ length: 10 }, () => []);
           for (let i = 0; i < nums.length; i++) {
             const digit = getDigit(nums[i], k);
             buckets[digit].push(nums[i]);
