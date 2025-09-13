@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>counting sort Algoritma</title>
+  </head>
+  <body>
+    <h1>counting sort algoritma</h1>
+    <script>
+      function countingSort(arr) {
+        if (arr.length === 0) return [];
+        // cari value terbesar yg ada didalam array
+        const max = Math.max(...arr);
+        // buat array sesuai dengan banyaknya value terbesar di dalam array (max+1)
+        const count = new Array(max + 1).fill(0);
+        // console.log(count);
+        // hitung frekuensi berapa banyak value yg sama di dalam array
+        for (let num of arrc) {
+          count[num]++;
+          console.log("perulangan num", num);
+          // console.log("isi variable count", count[num]++);
+        }
+        // buat array baru untuk memasukan value terkecil ke terbesar.
+        //
+        const sortedArr = [];
+        for (let i = 0; i < count.length; i++) {
+          while (count[i] > 0) {
+            sortedArr.push(i);
+            count[i]--;
+          }
+        }
+        return sortedArr;
+      }
+
+      const arrays = [100, 100, 80, 70, 60, 40, 80, 15];
+      console.log(countingSort(arrays));
+    </script>
+  </body>
+</html>
+
+<!-- jadi apa isi array di dalam array yg kita buat ? apakah jumlah dari value yg sama muncul contoh : 22 keluar 2x jadi di
+array[22] = 2 , atau array[22] = 22,22 ? lalu jelaskan bagaimana detailnya cara push arraynya di masukan ke array yg dibuat
+sortedArr jika array[22] = 2. dan array[22] = 22, 22 ? lalu kenapa yg di push itu sortedArr.push(i) ? bukankah i itu hanya 0 dan
+akan bertambah sesuai dengan increment ? ?  -->

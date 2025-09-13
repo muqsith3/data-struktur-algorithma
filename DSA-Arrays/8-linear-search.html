@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linear search</title>
+  </head>
+  <body>
+    <h1>linear search algoritma</h1>
+    <script>
+      function linearSearch(arr, target) {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === target) {
+            result.push(i); //simpan index yg cocok
+          }
+        }
+        return result.length > 0 ? result : -1;
+      }
+
+      //yg lebih informatif menampilkan value dan indexnya
+      function linearSearch2(arr, target) {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === target) {
+            result.push(`value ${target} ditemukan di index ${i}`);
+          }
+        }
+        return result.length > 0 ? result : `value ${target} tidak ditemukan`;
+      }
+
+      // contoh dengan return object
+      function linearSearchObject(arr, target) {
+        let indexes = [];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === target) {
+            indexes.push(i);
+          }
+        }
+        if (indexes.length > 0) {
+          return {
+            value: target,
+            indexes: indexes,
+            count: indexes.length,
+          };
+        } else {
+          return {
+            value: 0,
+            indexes: [],
+            count: 0,
+            message: `value ${target} tidak ditemukan`,
+          };
+        }
+      }
+      const data = [2, 5, 2, 7, 2, 10];
+      console.log(linearSearch(data, 2));
+      console.log(linearSearch2(data, 2));
+      console.log(linearSearchObject(data, 2));
+    </script>
+  </body>
+</html>
