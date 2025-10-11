@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>contoh linked list dengan javascript</title>
+  </head>
+  <body>
+    <script>
+      // node merepresentasikan 1 elemen linked list
+      class Node {
+        constructor(value) {
+          this.value = value; //data yg disimpan
+          this.next = null; // pointer ke node selanjutnya
+        }
+      }
+
+      // struktur utama linked list
+      class LinkedList {
+        constructor() {
+          this.head = null; //awal dari list
+        }
+
+        //menambahkan node di akhir
+        append(value) {
+          const newNode = new Node(value); // buat node baru
+          // ketika node head kosong, maka isi
+          if (!this.head) {
+            this.head = newNode;
+            return;
+          }
+
+          let current = this.head; // sebagai penunjuk pointer sementara untuk menjelajahi node selanjutnya
+          while (current.next) {
+            // proses menelusuri list ketika current.next ada valuenya maka liat selanjutnya
+            current = current.next;
+          } // ketika current sudah null, artinya kita sudah ada di akhir node.
+          current.next = newNode; // ketika tidak ada value maka tambahkan node di akhir linked list.
+        }
+
+        //menambahkan node di awal
+        prepend(value) {
+          const newNode = new Node(value); //buat node baru
+          newNode.next = this.head; // jika ada isi di node head, maka pindahkan ke node next
+          this.head = newNode; // ganti node head dengan node yang baru dibuat.
+        }
+
+        // menambahkan node setelah value tertentu
+        insertAfter(target, value) {
+          //jika list kosong, membuat node pertama dengan valuenya
+          if (!this.head) {
+            console.log(`list kosong, membuat node pertama dengan value ${value}`);
+            this.head = new Node(value);
+            return;
+          }
+          //jika sudah ada value pada linked list
+          let current = this.head; // buat current sementara dan di isi dengan node head
+          while (current) {
+            // cek apakah current true
+            if (current.value === target) {
+              // cek apakah current.value sama dengan target ? jika tidak lanjutkan ke current = current.next
+              const newNode = new Node(value); // jika sudah sama dengan target, buat node baru
+              newNode.next = current.next; // simpan node current.next ke variable newNode.next
+              current.next = newNode; // pilih node current, lalu isi nextnya dengan newNode.
+              return;
+            }
+            current = current.next; // jika tidak sama, maka lanjut ke node selanjutnya
+          }
+          console.log(`node dengan value ${target} tidak ditemukan`); // tidak target tidak ditemukan.
+        }
+
+        //menghapus node berdasarkan value
+        delete(value) {
+          if (!this.head) return; //jika head kosong maka return
+
+          // jika value sama di head
+          if (this.head.value === value) {
+            // jika value sama dengan head
+            this.head = this.head.next; // maka ubah value head dengan node selanjutnya
+            return;
+          }
+          // cara traversal mencari value yg sama di setiap node
+          let prev = null; // untuk node sebelumnya, karna current awal adalah head, oleh karena itu dibuat null
+          let current = this.head.next; // buat current dari node head, karena ini akan di cek terus
+          while (current) {
+            // selama ada node selanjutnya jalankan
+            if (current.value === value) {
+              prev.next = current.next;
+              return;
+            }
+            prev = current;
+            current = current.next;
+          }
+          console.log(`Node dengan value ${value} tidak ditemukan`);
+        }
+
+        // menampilkan isi linked list
+        print() {
+          let current = this.head;
+          let result = "";
+          while (current) {
+            result += current.value + " -> ";
+            current = current.next;
+          }
+          console.log(result + "null");
+        }
+      }
+      // contoh penggunaan
+      const list = new LinkedList(); // instance class baru
+      list.append(10);
+      list.append(20);
+      list.append(30);
+      list.append(40);
+      list.append(5);
+      list.insertAfter(20, 5);
+      list.print();
+
+      list.delete(30);
+      list.print();
+    </script>
+  </body>
+</html>
