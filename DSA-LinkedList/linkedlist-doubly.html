@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linked list doubly</title>
+  </head>
+  <body>
+    <script>
+      // buat node class
+      class Node {
+        constructor(value) {
+          this.value = value; // isi data node
+          this.next = null; // pointer ke node selanjutnya
+          this.prev = null; // pointer ke node sebelumnya
+        }
+      }
+
+      // buat linked list doubly class
+      class DoublyLinkedList {
+        constructor() {
+          this.head = null; // untuk node pertama
+          this.tail = null; // untuk node terakhir
+        }
+        // tambah node di akhir
+        append(value) {
+          const newNode = new Node(value);
+          // jika list masih kosong maka jadi head dan tail
+          if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+          } else {
+            // jika tidak kosong
+            // sambungkan node baru ke tail lama
+            this.tail.next = newNode; // node lama tail lama menunjuk ke newNode. mereferensikan properti doublylinked list next ke newnode
+            newNode.prev = this.tail; // newNode <- tail lama. node baru menunjuk ke tail lama (dua arah)
+            this.tail = newNode; // update tail ke node baru. agar menunjuk ke node baru
+          }
+        }
+
+        // tambah node di depan
+        prepend(value) {
+          const newNode = new Node(value);
+          // jika head kosong isi dengan node baru
+          if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+          } else {
+            newNode.next = this.head; // buat node baru menjadi head, dan head lama pindah ke node selanjutnya
+            this.head.prev = newNode; // head lama menunjuk ke node baru.
+            this.head = newNode; // update head ke node baru
+          }
+        }
+
+        // hapus node berdasarkan value
+        delete(value) {
+          if (!this.head) return; // jika tidak ada data / head kosong
+
+          let current = this.head;
+
+          while (current) {
+            if (current.value === value) {
+              // jika node yg dihapus adalah head
+              if (current === this.head) {
+                this.head = current.next; //ganti value head sekarang ke node selanjutnya
+                if (this.head) this.head.prev = null; // ubah juga properti prev di head sekarang, karena datanya sudah gk ada.
+              }
+
+              // jika node di tail / akhir node
+              else if (current === this.tail) {
+                this.tail = current.prev;
+                this.tail.next = null;
+              }
+              // jika node di tengah
+              else {
+                current.prev.next = current.next; // pilih node sekarang, lalu ke node sebelumnya, ganti properti next menjadi node selanjutnya dari node sekarang
+                current.next.prev = current.prev; // pilih node selanjutnya dari node sekarang, akses properti prev dan ganti ke node sebelum node sekarang.
+              }
+              return;
+            }
+            current = current.next;
+          }
+        }
+        // tampilkan semua node
+        display() {
+          let current = this.head;
+          let values = [];
+
+          while (current) {
+            values.push(current.value);
+            current = current.next;
+          }
+          console.log(`list : ${values.join(" ⇔ ")} `);
+        }
+      }
+
+      const list = new DoublyLinkedList();
+      list.append(10);
+      list.append(20);
+      list.append(30);
+      list.append(5);
+      list.append(15);
+      list.display();
+
+      list.delete(10);
+      list.display();
+
+      list.delete(5);
+      list.display();
+    </script>
+  </body>
+</html>
